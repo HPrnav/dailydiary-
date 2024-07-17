@@ -1,6 +1,5 @@
-import { Navigate, useNavigate } from "react-router-dom"
-import { BACKEND_URL } from "../config";
-
+import { useNavigate } from "react-router-dom"
+ 
 
 export function Landing() {
     const navigate =useNavigate();

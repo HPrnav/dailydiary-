@@ -1,7 +1,5 @@
-import { Navigate, useNavigate } from "react-router-dom"
-import { BACKEND_URL } from "../config"
-import axios from "axios"
-
+import {useNavigate } from "react-router-dom"
+ 
 interface BlogCardType{
     publishdate:string,
     author:string,
