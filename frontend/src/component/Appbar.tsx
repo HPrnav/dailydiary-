@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const Appbar = () => {
     return <div className="border-b-4  flex justify-between px-10 py-4 w-full">
         <Link to={'/blogs'} className="flex flex-col justify-center cursor-pointer">
-                Medium
+                DailyDiary
         </Link>
         <div>
             <Link to={`/publish`}>
