@@ -6,10 +6,7 @@ import { Blog } from './pages/Blog'
 import { Publish } from './pages/Publish'
 import { Landing } from './pages/Landing'
 import {My_blogs} from './pages/My_blogs'
-import { Appbar } from './component/Appbar'
-
-import { useState } from 'react'
-
+ 
  function App() {
  
   return (

@@ -7,7 +7,7 @@ import { Sceleton } from '../component/Sceleton';
 export const My_blogs = () => {
     const [filter, setFilter] = useState("");
      const {myBlogs,loading} = useMyBlogs();
-
+     const [currentPage, setCurrentPage] = useState(1);
  
     // Handle filter debounce
     useEffect(() => {
@@ -27,14 +27,14 @@ export const My_blogs = () => {
     );
 
     const blogsPerPage = 5;
-    const currentPage = 1; // Manage page state if needed
+    // const currentPage = 1; // Manage page state if needed
     const totalBlogs = filteredBlogs.length;
     const totalPages = Math.ceil(totalBlogs / blogsPerPage);
     const startPage = (currentPage - 1) * blogsPerPage;
     const endPage = startPage + blogsPerPage;
 
     const handlePageChange = (page: number) => {
-        // Update currentPage state if you have a state for it
+        setCurrentPage(page);
     };
 
     if (loading) {
