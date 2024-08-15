@@ -5,19 +5,25 @@ import { Blogs } from './pages/Blogs'
 import { Blog } from './pages/Blog'
 import { Publish } from './pages/Publish'
 import { Landing } from './pages/Landing'
+import {My_blogs} from './pages/My_blogs'
+import { Appbar } from './component/Appbar'
 
-function App() {
+import { useState } from 'react'
 
+ function App() {
+ 
   return (
     <>
+     
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing/>}></Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs" element={<Blogs  />} />
           <Route path="/blog/:id" element={<Blog />} />
           <Route path="/publish" element={<Publish />} />
+          <Route path="/My_blogs" element={< My_blogs/>} />
         </Routes>
       </BrowserRouter>
     </>

@@ -37,6 +37,7 @@ export const useblog=({id}:{id:string})=>{
 
 
 export const useblogs=()=>{
+    
     const [loading,setloading]=useState(true)
     const [blogs,setblogs]=useState<Blog[]>([]);
 
@@ -57,3 +58,61 @@ export const useblogs=()=>{
         blogs
     }
 }
+export const useMyBlogs = () => {
+    const [loading, setLoading] = useState(true);
+    const [myBlogs, setMyBlogs] = useState<Blog[]>([]);
+  
+    function parseJWT(token: string): any | null {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        ).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        console.error("Invalid JWT", e);
+        return null;
+      }
+    }
+  
+    useEffect(() => {
+      const fetchBlogs = async (userId: string) => {
+        try {
+          const response = await axios.get(`${BACKEND_URL}/api/v1/blog/my/${userId}`, {
+            headers: {
+              Authorization: localStorage.getItem("token") || ''
+            }
+          });
+          setMyBlogs(response.data.blogs);
+        } catch (error) {
+          console.error("Error fetching blogs", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      const token = localStorage.getItem('token');
+      if (token) {
+        const user = parseJWT(token);
+        if (user && user.id) {
+          fetchBlogs(user.id);
+        } else {
+          console.error("User ID not found in token");
+          setLoading(false);
+        }
+      } else {
+        console.error("Token not found");
+        setLoading(false);
+      }
+    }, []);
+  
+    return {
+      loading,
+      myBlogs
+    };
+  };
+
+
+
+

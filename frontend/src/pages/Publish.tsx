@@ -1,4 +1,3 @@
-import { Appbar } from "../component/Appbar";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +9,11 @@ export const Publish = () => {
     const navigate = useNavigate();
 
     return <div>
-        <Appbar />
-        <div className="flex justify-center w-full pt-8"> 
+         <div className="flex justify-center w-full pt-8"> 
             <div className="max-w-screen-lg w-full">
                 <input onChange={(e) => {
                     setTitle(e.target.value)
-                }} type="text" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" />
+                }} type="text" className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" />
 
                 <TextEditor onChange={(e) => {
                     setDescription(e.target.value)
