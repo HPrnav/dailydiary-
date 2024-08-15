@@ -20,7 +20,7 @@ import {My_blogs} from './pages/My_blogs'
           <Route path="/blogs" element={<Blogs  />} />
           <Route path="/blog/:id" element={<Blog />} />
           <Route path="/publish" element={<Publish />} />
-          <Route path="/My_blogs" element={< My_blogs/>} />
+          <Route path="/My_blogs" element={<My_blogs/>} />
         </Routes>
       </BrowserRouter>
     </>

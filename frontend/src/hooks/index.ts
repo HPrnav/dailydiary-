@@ -24,8 +24,7 @@ export const useblog=({id}:{id:string})=>{
         }).then(response => {
     
                 setblog(response.data.blog);
-                console.log("inside useblog")
-                console.log(response)
+               
                  setloading(false);
             })
         }, [id])
@@ -61,7 +60,8 @@ export const useblogs=()=>{
 export const useMyBlogs = () => {
     const [loading, setLoading] = useState(true);
     const [myBlogs, setMyBlogs] = useState<Blog[]>([]);
-  
+
+
     function parseJWT(token: string): any | null {
       try {
         const base64Url = token.split('.')[1];
@@ -84,7 +84,8 @@ export const useMyBlogs = () => {
               Authorization: localStorage.getItem("token") || ''
             }
           });
-          setMyBlogs(response.data.blogs);
+          console.log(response.data.blog)
+          setMyBlogs(response.data.blog);
         } catch (error) {
           console.error("Error fetching blogs", error);
         } finally {
@@ -95,7 +96,7 @@ export const useMyBlogs = () => {
       const token = localStorage.getItem('token');
       if (token) {
         const user = parseJWT(token);
-        if (user && user.id) {
+         if (user && user.id) {
           fetchBlogs(user.id);
         } else {
           console.error("User ID not found in token");
