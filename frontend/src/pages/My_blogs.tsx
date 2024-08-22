@@ -3,12 +3,14 @@ import { useMyBlogs } from '../hooks';
 import { BlogBox } from '../component/BlogBox';
 import { Appbar } from '../component/Appbar';
 import { Sceleton } from '../component/Sceleton';
+import {MyCard} from '../component/My_card';
+
 
 export const My_blogs = () => {
     const [filter, setFilter] = useState("");
      const {myBlogs,loading} = useMyBlogs();
      const [currentPage, setCurrentPage] = useState(1);
- 
+     const [author ,setauthor]=useState("");
     // Handle filter debounce
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -22,7 +24,7 @@ export const My_blogs = () => {
 
     // Filter blogs
     const filteredBlogs = myBlogs.filter(blog =>
-        blog.title.toLowerCase().includes(filter.toLowerCase()) ||
+         blog.title.toLowerCase().includes(filter.toLowerCase()) ||
         blog.author.name.toLowerCase().includes(filter.toLowerCase())
     );
 
@@ -53,11 +55,14 @@ export const My_blogs = () => {
     return (
         <div className="flex flex-col items-center">
             <Appbar setFilter={setFilter} />
+            <MyCard num={totalBlogs} ></MyCard>
+
             <div className="w-3/5 flex flex-col gap-5">
                 {filteredBlogs.slice(startPage, endPage).map(blog => (
                     <BlogBox
                         key={blog.id}
                         id={blog.id}
+                        del={true}
                         author={blog.author.name || "Anonymous"}
                         title={blog.title}
                         content={blog.content}

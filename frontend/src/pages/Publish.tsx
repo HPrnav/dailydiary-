@@ -18,7 +18,8 @@ export const Publish = () => {
                 <TextEditor onChange={(e) => {
                     setDescription(e.target.value)
                 }} />
-                <button onClick={async () => {
+                <button 
+                onClick={async () => {
                     const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
                         title,
                         content: description

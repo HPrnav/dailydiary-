@@ -10,6 +10,7 @@ export interface Blog{
     "author":{
         "name":string
     }
+    "authorId":  number
 }
 
 export const useblog=({id}:{id:string})=>{
@@ -24,7 +25,6 @@ export const useblog=({id}:{id:string})=>{
         }).then(response => {
     
                 setblog(response.data.blog);
-               
                  setloading(false);
             })
         }, [id])
@@ -34,6 +34,7 @@ export const useblog=({id}:{id:string})=>{
     }
 }
 
+ 
 
 export const useblogs=()=>{
     
@@ -76,7 +77,7 @@ export const useMyBlogs = () => {
       }
     }
   
-    useEffect(() => {
+    useEffect(() => { 
       const fetchBlogs = async (userId: string) => {
         try {
           const response = await axios.get(`${BACKEND_URL}/api/v1/blog/my/${userId}`, {

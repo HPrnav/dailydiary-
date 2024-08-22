@@ -59,6 +59,7 @@ export const Blogs = () => {
                         <BlogBox
                             key={blog.id}
                             id={blog.id}
+                            del={false}
                             author={blog.author.name || "Anonymous"}
                             title={blog.title}
                             content={blog.content}
