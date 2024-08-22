@@ -10,8 +10,7 @@ export const My_blogs = () => {
     const [filter, setFilter] = useState("");
      const {myBlogs,loading} = useMyBlogs();
      const [currentPage, setCurrentPage] = useState(1);
-     const [author ,setauthor]=useState("");
-    // Handle filter debounce
+     // Handle filter debounce
     useEffect(() => {
         const handler = setTimeout(() => {
             setFilter(filter);
