@@ -11,6 +11,7 @@ const app = new Hono<{
 }>()
 
 app.use('/api/*', cors())
+app.get('/', (c) => c.text('Hello !'));
 app.route('/api/v1/user',userRoute);
 app.route('api/v1/blog',blogRoute)
 export default app

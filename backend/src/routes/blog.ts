@@ -3,6 +3,7 @@ import { decode,sign,verify } from 'hono/jwt'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
  import { createBlogInput,updateBlogInput } from '@100xdevs/medium-common'
+import { number } from 'zod'
 
 export const blogRoute = new Hono<{
   Bindings:{
@@ -13,6 +14,15 @@ export const blogRoute = new Hono<{
     userid:  any;
   }
 }>()
+
+blogRoute.get('/', async(c) => {
+    // const body=await c.req.json();
+    // console.log(body);
+    // const hdr=c.req.header("Authorization")
+    // const parma=c.req.query("param")
+    // return c.text(`body's id :` +body.id+`___header`+hdr +`__query-paramerter:`+parma);
+    return c.text(`body` );
+  })
 
 blogRoute.use('/*', async(c,next)=>{
     const authheader= c.req.header("Authorization")||"";
@@ -121,6 +131,7 @@ blogRoute.get('/:id',async(c)=>{
         datasourceUrl:c.env.DATABASE_URL,
       }).$extends(withAccelerate())
 
+
     try {
         const  blog=await prisma.blog.findFirst({
         where:{
@@ -134,7 +145,8 @@ blogRoute.get('/:id',async(c)=>{
                 select:{
                     name:true
                 }
-            }
+            },
+            authorId:true
         }
         }) 
         return c.json({blog});
@@ -144,4 +156,107 @@ blogRoute.get('/:id',async(c)=>{
     }
 
 });
+
+
+blogRoute.get('/my/:author_id',async(c)=>{
+    const id=c.req.param("author_id");
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env.DATABASE_URL,
+      }).$extends(withAccelerate())
+
+    try {
+        const  blog=await prisma.blog.findMany({
+        where:{
+            authorId:Number(id)
+        },
+        select:{
+            id:true,
+            title:true,
+            content:true,
+            author:{
+                select:{
+                    name:true
+                }
+            }
+        }
+        }) 
+        return c.json({blog});
+
+    } catch (error) {
+        return c.text('inside the blog in backend'+error);
+    }
+});
+
+
+blogRoute.delete('/delete/:del_id',async(c)=>{
+    const delId=c.req.param("del_id");
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env.DATABASE_URL,
+      }).$extends(withAccelerate())
+
+      try {
+
+        const del_blog= await prisma.blog.delete({
+            where:{
+                id:Number(delId)
+            }
+        })
+        return c.json({del_blog});
+      } catch (error) {
+        console.log("error while deleting blog");
+      }
+})
+
+
+
+
+// blogRoute.get('/:filter', async (c) => {
+//     const prisma = new PrismaClient({
+//         datasourceUrl: c.env.DATABASE_URL,
+//     }).$extends(withAccelerate());
+
+//     // Get the filter word from the query parameters
+//     const filterWord = c.req.param('filter') || '';
+
+//     try {
+//         // Find blog posts that contain the filter word in their title or content
+//         const blogs = await prisma.blog.findMany({
+//             where: {
+//                 OR: [
+//                     {
+//                         title: {
+//                             contains: filterWord,
+//                             mode: 'insensitive', // Make search case insensitive
+//                         }
+//                     },
+//                     {
+//                         content: {
+//                             contains: filterWord,
+//                             mode: 'insensitive',
+//                         }
+//                     }
+//                 ]
+//             },
+//             select: {
+//                 id: true,
+//                 title: true,
+//                 content: true,
+//                 author: {
+//                     select: {
+//                         name: true
+//                     }
+//                 }
+//             }
+//         });
+
+//         return c.json({ blogs });
+//     } catch (error) {
+//         return c.text('Error: ' + error);
+//     }
+// });
+
+
+
+
+
 
