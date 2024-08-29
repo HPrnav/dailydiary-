@@ -2,14 +2,13 @@ import { BlogBox } from "../component/BlogBox";
 import { Appbar } from "../component/Appbar";
 import { useblogs } from "../hooks";
 import { Sceleton } from "../component/Sceleton";
-import { useState } from "react";
- import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const Blogs = () => {
     const blogsPerPage = 5;
     const { loading, blogs } = useblogs();
     const [currentPage, setCurrentPage] = useState(1);
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState(" ");
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -22,12 +21,13 @@ export const Blogs = () => {
         };
     }, [filter]);
 
-    const filteredBlogs = blogs.filter(blog =>
+    // Ensure blogs is defined and has data before filtering
+    const filteredBlogs = blogs?.filter(blog =>
         blog.title.toLowerCase().includes(filter.toLowerCase()) ||
-        blog.author.name.toLowerCase().includes(filter.toLowerCase())
-    );
+        blog.author?.name.toLowerCase().includes(filter.toLowerCase())
+    ) || [];
 
-    const totalBlogs = blogs.length;
+    const totalBlogs = filteredBlogs.length;
     const totalPages = Math.ceil(totalBlogs / blogsPerPage);
 
     const startPage = (currentPage - 1) * blogsPerPage;
@@ -60,7 +60,8 @@ export const Blogs = () => {
                             key={blog.id}
                             id={blog.id}
                             del={false}
-                            author={blog.author.name || "Anonymous"}
+                            image={blog.image}
+                            author={blog.author?.name || "Anonymous"}
                             title={blog.title}
                             content={blog.content}
                             publishdate={"2nd Feb 2024"}

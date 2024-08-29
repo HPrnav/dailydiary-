@@ -7,6 +7,8 @@ export interface Blog{
     "content":string
     "title":string
     "id":number
+    "image":string
+    "access":string
     "author":{
         "name":string
     }
@@ -18,7 +20,7 @@ export const useblog=({id}:{id:string})=>{
     const [blog,setblog]=useState<Blog>();
     
     useEffect(() => { 
-        axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
+        axios.get(`${BACKEND_URL}/api/v1/blog/get_one/${id}`, {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
@@ -49,6 +51,7 @@ export const useblogs=()=>{
         }).then(response => {
 
                 setblogs(response.data.blogs);
+                console.log("printing in use blogs:")
                 console.log(response)
                 setloading(false);
             })

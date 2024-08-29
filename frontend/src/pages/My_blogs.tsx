@@ -63,6 +63,7 @@ export const My_blogs = () => {
                         id={blog.id}
                         del={true}
                         author={blog.author.name || "Anonymous"}
+                        image={blog.image}
                         title={blog.title}
                         content={blog.content}
                         publishdate={"2nd Feb 2024"}

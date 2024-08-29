@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FullBlog } from "../component/FullBlog";
 import { Sceleton } from "../component/Sceleton";
 import { useState, useEffect } from "react";
+import { Appbar } from "../component/Appbar";
 
 export const Blog = () => {
     const { id } = useParams();
@@ -50,6 +51,7 @@ export const Blog = () => {
 
     return (
         <div>
+            <Appbar></Appbar>
             <FullBlog blog={blog} user={user} />
         </div>
     );
