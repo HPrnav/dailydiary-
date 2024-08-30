@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { Savebutton } from "./Savebutton";
 
 interface BlogCardType {
     publishdate: string;
@@ -99,6 +100,8 @@ export const BlogBox = ({
                     >
                         READ ALOUD
                     </button>
+                    <Savebutton id={id? id:0}></Savebutton>
+
                     {del && (
                         <button
                             onClick={(e) => {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Savebutton } from "./Savebutton";
 
 export const FullBlog = ({ blog, user }: { blog: Blog, user: number }) => {
     const navigate = useNavigate();
@@ -52,6 +53,8 @@ export const FullBlog = ({ blog, user }: { blog: Blog, user: number }) => {
                     >
                         Read Aloud
                     </button>
+                    <Savebutton id={blog.id}></Savebutton>
+                    
                     {user === blog.authorId && (
                         <button
                             onClick={handleDelete}
