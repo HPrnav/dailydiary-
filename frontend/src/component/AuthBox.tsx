@@ -26,7 +26,7 @@ export const AuthBox = ({ type }: { type: "signup" | "signin" }) => {
             console.log(response.data.jwt);
             const jwt = response.data.jwt;
             localStorage.setItem("token", jwt);
-            navigate("/blogs");
+            type==='signin' ? navigate("/blogs"): navigate("/signin");
         } catch(e) {
             alert("Error while signing up")
             // alert the user here that the request failed

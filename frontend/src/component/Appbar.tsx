@@ -32,7 +32,7 @@ export const Appbar: React.FC<AppbarProps> = ({ setFilter }) => {
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5a7 7 0 0114 0v0a7 7 0 01-14 0v0z"/>
                                 </svg>
                             </div>
-                            <input onChange={(e) => setFilter?.(e.target.value)} type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search blog here" required />
+                            <input onChange={(e) => setFilter?.(e.target.value)} type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search story / category" required />
                         </form>
                     )}
                 </div>

@@ -7,8 +7,7 @@ import { Publish } from './pages/Publish'
 import { Landing } from './pages/Landing'
 import {My_blogs} from './pages/My_blogs'
 import { SavedBlogs } from './pages/Saved_blog'
-import Footer from './component/Footer'
- 
+  
  function App() {
  
   return (
@@ -25,8 +24,7 @@ import Footer from './component/Footer'
           <Route path="/My_blogs" element={<My_blogs/>} />
           <Route path="/Saved_blog" element={<SavedBlogs/>} />
         </Routes>
-        <Footer></Footer>
-      </BrowserRouter>
+       </BrowserRouter>
       
 
       <></>

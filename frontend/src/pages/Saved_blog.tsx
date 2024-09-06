@@ -1,5 +1,5 @@
 import axios from "axios"; // Import Axios
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Appbar } from "../component/Appbar";
 import { Sceleton } from "../component/Sceleton";
 import { useSavedBlogs } from "../hooks/index.ts"; // Import the custom hook
@@ -28,6 +28,8 @@ export const SavedBlogs = () => {
             };
 
             fetchBlogs();
+        } else {
+            setLoadingBlogs(false); // Set loading to false if no saved blogs are present
         }
     }, [savedBlogIds]);
 
@@ -43,31 +45,42 @@ export const SavedBlogs = () => {
             </div>
         );
     }
+
     if (error) {
-        return <div>{error}</div>;
+        return <div className="text-red-500">Error: {error}</div>;
+    }
+
+    if (savedBlogIds.length === 0) {
+        return (
+            <div className="flex flex-col items-center">
+                <Appbar setFilter={() => {}} />
+                <p className="text-gray-500 mt-5">You have no saved blogs.</p>
+            </div>
+        );
     }
 
     return (
         <div className="flex flex-col items-center">
             <Appbar setFilter={() => {}} />
             <div className="w-3/4 flex flex-wrap gap-6 justify-center">
-                {savedBlogIds.length > 0 &&
-                    blogs.map((blog:any) =>
-                        savedBlogIds.includes(blog.id) ? (
-                            <div key={blog.id} className="bg-gray-200 shadow-lg rounded-lg p-6 w-full sm:w-80">
-                                <img
-                                    src={blog.image}
-                                    alt={blog.title}
-                                    className="w-full h-48 object-cover rounded-t-lg mb-4"
-                                />
-                                <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
-                                <p className="text-gray-600 mb-2">by {blog.author?.name || "Anonymous"}</p>
-                                <p className="text-gray-800">
-                                    {blog.content.length > 40 ? `${blog.content.substring(0, 40)}...` : blog.content}
-                                </p>
-                            </div>
-                        ) : null
-                    )}
+                {blogs.map((blog: any) =>
+                    savedBlogIds.includes(blog.id) ? (
+                        <div key={blog.id} className="bg-gray-200 shadow-lg rounded-lg p-6 w-full sm:w-80">
+                            <img
+                                src={blog.image}
+                                alt={blog.title}
+                                className="w-full h-48 object-cover rounded-t-lg mb-4"
+                            />
+                            <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
+                            <p className="text-gray-600 mb-2">by {blog.author?.name || "Anonymous"}</p>
+                            <p className="text-gray-800">
+                                {blog.content.length > 40
+                                    ? `${blog.content.substring(0, 40)}...`
+                                    : blog.content}
+                            </p>
+                        </div>
+                    ) : null
+                )}
             </div>
         </div>
     );
