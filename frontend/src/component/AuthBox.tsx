@@ -36,11 +36,11 @@ export const AuthBox = ({ type }: { type: "signup" | "signin" }) => {
 
     return <div className="flex justify-center  h-screen flex-col  ">
         <div className=" flex justify-center ">
-            <div className=" border border-black shadow shadow-xl p-10 rounded-lg">
+            <div className=" border border-black shadow-xl p-10 rounded-lg">
 
                 <div className="pb-5">
                     <div className="flex justify-center">
-                        <div className="font-bold text-3xl font-black"> {type === "signup" ? "Signup" : "Signin"}</div>
+                        <div className="font-bold text-3xl"> {type === "signup" ? "Signup" : "Signin"}</div>
                     </div>
 
                     <div>

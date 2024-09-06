@@ -40,12 +40,12 @@ export const FullBlog = ({ blog, user }: { blog: Blog, user: number }) => {
 
     return (
         <div className="flex justify-center w-full">
-            <div className="bg-white shadow-lg p-6 max-w-screen-md  w-full rounded-lg">
+            <div className="bg-white shadow-lg p-6 max-w-screen-md w-full rounded-lg">
                 <h1 className="text-5xl font-extrabold">{blog.title}</h1>
-                <p className="text-gray-500 pt-2"> AUTHOR:{blog.author.name}</p>
-                <p className="text-gray-500 pt-2"> ACCESS:{blog.access}</p>
-                 
-                <div className="flex items-start  gap-5 text-lg mt-2">
+                <p className="text-gray-500 pt-2">AUTHOR: {blog.author.name}</p>
+                <p className="text-gray-500 pt-2">ACCESS: {blog.access}</p>
+
+                <div className="flex items-start gap-5 text-lg mt-2">
                     <span>{blog.author.name || "Anonymous"}</span>
                     <button
                         onClick={handleReadAloud}
@@ -53,8 +53,7 @@ export const FullBlog = ({ blog, user }: { blog: Blog, user: number }) => {
                     >
                         Read Aloud
                     </button>
-                    <Savebutton id={blog.id}></Savebutton>
-                    
+                    <Savebutton id={blog.id} />
                     {user === blog.authorId && (
                         <button
                             onClick={handleDelete}
@@ -64,12 +63,16 @@ export const FullBlog = ({ blog, user }: { blog: Blog, user: number }) => {
                         </button>
                     )}
                 </div>
+                <div className=" flex justify-center">
+
                 <img
                     src={blog.image}
                     alt={blog.title}
-                    className="w-full h-3/5 object-cover mt-4 rounded-lg transform hover:scale-105 transition-transform duration-200"
+                    className=" h-[60vh] object-cover aspect-w-3 aspect-h-4 mt-4 rounded-lg transform hover:scale-105 transition-transform duration-200"
                 />
-                <div className="pt-4 text-lg">
+                </div>
+
+                <div className="pt-4 text-lg max-h-[60vh] overflow-auto">
                     {blog.content}
                 </div>
             </div>

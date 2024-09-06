@@ -9,8 +9,8 @@ export const Publish = () => {
     const [description, setDescription] = useState("");
     // const [image, setImage] = useState<File | null>(null);
     const [imageURL, setImageURL] = useState<string | null>(null);
-    const [uploading, setUploading] = useState(false); 
-    const [ Access, setAccess] = useState<string>("");  
+    const [uploading, setUploading] = useState(false);
+    const [Access, setAccess] = useState<string>("public");
     const navigate = useNavigate();
 
     const handleImageUpload = async (file: File) => {
@@ -20,7 +20,7 @@ export const Publish = () => {
 
         try {
             const response = await axios.post(CLOUDINARY_URL, formData);
-            setImageURL(response.data.secure_url);  
+            setImageURL(response.data.secure_url);
         } catch (error) {
             console.error("Error uploading image:", error);
             setImageURL(null); // Reset imageURL on error
@@ -28,6 +28,7 @@ export const Publish = () => {
             setUploading(false); // Reset uploading state
         }
     };
+
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
@@ -50,7 +51,7 @@ export const Publish = () => {
                 title,
                 content: description,
                 image: imageURL, // Include image URL in the request body
-                access:Access, // Include   in the request body
+                access: Access, // Include   in the request body
             }, {
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -58,7 +59,7 @@ export const Publish = () => {
             });
 
             console.log(response); // Log response for debugging
-            console.log("access is"+Access); 
+            console.log("access is" + Access);
             navigate(`/blog/${response.data.id}`);
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -67,7 +68,7 @@ export const Publish = () => {
 
     return (
         <>
-        <Appbar/>
+            <Appbar />
             <div className="min-h-screen bg-white text-black flex items-center justify-center">
                 <div className="max-w-screen-lg w-full p-8 bg-white border border-black rounded-lg shadow-md">
                     <input
@@ -82,16 +83,15 @@ export const Publish = () => {
                             Access
                         </label>
                         <select
-                            id="category"
-                            name="category"
-                            value={Access}
-                            onChange={(e) => setAccess(e.target.value)}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-black bg-white text-black focus:outline-none focus:ring-black focus:border-black sm:text-sm rounded-md"
+                            id="access-level"   
+                            name="access"       
+                            value={Access}     
+                            onChange={(e) => setAccess(e.target.value)}   
                         >
-                            <option value="public">public</option>
-                            <option value="private">private</option>
-                            
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
                         </select>
+
                     </div>
                     <input
                         type="file"

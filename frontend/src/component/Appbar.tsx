@@ -12,10 +12,13 @@ export const Appbar: React.FC<AppbarProps> = ({ setFilter }) => {
     // Toggle mobile menu
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    // Check if the current page is the homepage
+    const Page = location.pathname ;
+
     return (
         <div className="bg-white border-b-4 border-gray-200 shadow-md w-full">
             <div className="flex justify-between px-4 py-2 md:px-10 md:py-4 w-full items-center">
-                <Link to={'/blogs'} className="text-xl font-bold text-gray-800">DailyDiary</Link>
+                <Link to={'/blogs'} className="text-xl font-serif font-bold text-gray-800">Tale-Pod</Link>
                 <button className="md:hidden p-2 text-gray-600 focus:outline-none" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"/>
@@ -34,14 +37,28 @@ export const Appbar: React.FC<AppbarProps> = ({ setFilter }) => {
                     )}
                 </div>
                 <div className="hidden md:flex gap-4">
+                    <Link to={'/blogs'}>
+                        <button
+                            type="button"
+                            className={`${
+                                Page ==='/blogs' ? "bg-yellow-500 text-black" : "bg-green-700 text-white"
+                            } hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5`}
+                        >
+                            HOME
+                        </button>
+                    </Link>
                     <Link to={`/Saved_blog`}>
-                        <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5">Saved</button>
+                        <button type="button" 
+                        className={`${Page==='/Saved_blog'? "bg-yellow-500 text-black" : "bg-green-700 text-white" } hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5`}>Saved</button>
+                        
                     </Link>
                     <Link to={`/My_blogs`}>
-                        <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5">My Blogs</button>
+                        <button type="button" 
+                        className= {`${Page==='/My_blogs'? "bg-yellow-500 text-black" : "bg-green-700 text-white"} hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5`}>My Blogs</button>
                     </Link>
                     <Link to={`/publish`}>
-                        <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5">Publish</button>
+                        <button type="button" 
+                        className={`${Page==='/publish'? "bg-yellow-500 text-black" :"bg-green-700 text-white"} hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5`}>Publish</button>
                     </Link>
                 </div>
             </div>

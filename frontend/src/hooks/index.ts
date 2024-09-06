@@ -61,6 +61,39 @@ export const useblogs=()=>{
         blogs
     }
 }
+
+
+export const useSavedBlogs = () => {
+  const [savedBlogIds, setSavedBlogIds] = useState<number[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+      const fetchSavedBlogs = async () => {
+          try {
+              const response = await axios.get(`${BACKEND_URL}/api/v1/blog/saved-blogs`, {
+                  headers: {
+                      Authorization: localStorage.getItem("token"),
+                  },
+              });
+              const { success, savedBlogIds } = response.data;
+              if (success) {
+                  setSavedBlogIds(savedBlogIds);
+              }
+              setLoading(false);
+          } catch (err) {
+              setError("Error fetching saved blogs");
+              setLoading(false);
+          }
+      };
+
+      fetchSavedBlogs();
+  }, []);
+
+  return { savedBlogIds, loading, error };
+};
+
+
 export const useMyBlogs = () => {
     const [loading, setLoading] = useState(true);
     const [myBlogs, setMyBlogs] = useState<Blog[]>([]);

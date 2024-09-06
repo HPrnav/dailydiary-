@@ -18,7 +18,7 @@ export const Savebutton: React.FC<SavebuttonProps> = ({ id }) => {
                     Authorization: localStorage.getItem("token"),
                 },
             });
-
+            
              navigate(`/saved_blog`);
         } catch (error) {
             console.error("Error saving blog:", error);

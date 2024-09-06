@@ -27,7 +27,10 @@ export const Blogs = () => {
         blog.author?.name.toLowerCase().includes(filter.toLowerCase())
     ) || [];
 
-    const totalBlogs = filteredBlogs.length;
+    // Reverse the order of the filtered blogs
+    const reversedBlogs = filteredBlogs.reverse();
+
+    const totalBlogs = reversedBlogs.length;
     const totalPages = Math.ceil(totalBlogs / blogsPerPage);
 
     const startPage = (currentPage - 1) * blogsPerPage;
@@ -55,7 +58,7 @@ export const Blogs = () => {
             <div className="flex flex-col items-center">
                 <Appbar setFilter={setFilter} />
                 <div className="w-3/5 flex flex-col gap-5">
-                    {filteredBlogs.slice(startPage, endPage).map(blog => (
+                    {reversedBlogs.slice(startPage, endPage).map(blog => (
                         <BlogBox
                             key={blog.id}
                             id={blog.id}
